@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Home from '@/pages/Home.vue'
 import Search from '@/pages/Search.vue'
@@ -6,7 +6,7 @@ import Playlist from '@/pages/Playlist.vue'
 import Detail from '@/pages/Detail.vue'
 
 const router = createRouter({
-    history:createWebHistory(),
+    history:createWebHashHistory(),
     routes:[
         {
             name:'home',
@@ -30,6 +30,10 @@ const router = createRouter({
             path:'/playlist',
             component:Playlist
         },
+        {
+            path:'/',
+            redirect:'/home'
+        }
     ]
 })
 

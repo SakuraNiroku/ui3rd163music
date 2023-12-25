@@ -17,6 +17,7 @@
 import { useRoute } from 'vue-router'
 import { ref, watch, toRefs } from 'vue'
 import axios from 'axios'
+axios.defaults.withCredentials = true
 let route = useRoute()
 let {params} = toRefs(useRoute())
 let img_src = ref('https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg?param=100y100')
@@ -25,7 +26,7 @@ let channel = new BroadcastChannel('player-channel')
 async function updateImg(){
     try{
         img_src.value = 'https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg?param=100y100'
-        let result = await axios.get(`https://163api.qxiao.eu.org/song/detail?ids=${route.params.id}`)
+        let result = await axios.get(`https://163api.qxiao.eu.org/song/detail?ids=${route.params.id}&realIP=116.25.146.177`)
         if(result.data.code == 200){
             let song = result.data.songs[0]
             img_src.value = song.al.picUrl+'?param=100y100'

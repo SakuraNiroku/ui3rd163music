@@ -43,6 +43,7 @@
 import { ref } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
 import axios from 'axios'
+axios.defaults.withCredentials = true
 
 let searchText = ref('')
 let searchResult = ref([])
@@ -53,7 +54,7 @@ async function searchFunc(p){
     page.value = p
     try{
         canChangePage.value = false
-        let result = await axios.get('https://163api.qxiao.eu.org/search?limit=10&keywords='+searchText.value+'&offset='+(page.value-1)*10)
+        let result = await axios.get('https://163api.qxiao.eu.org/search?limit=10&realIP=116.25.146.177&keywords='+searchText.value+'&offset='+(page.value-1)*10)
         searchResult.value = []
         if(result.data.code == 200){
             if(result.data.result.songs != undefined){
