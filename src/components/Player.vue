@@ -19,7 +19,7 @@ console.log('@@@@',playerStore)
 playerStore.play.autoplay = false
 
 let channel = new BroadcastChannel('player-channel')
-channel.onmessage = async function(e){
+channel.onmessage = function(e){
     let data = e.data
     playerStore.play = {
         id:data.id,
@@ -28,16 +28,19 @@ channel.onmessage = async function(e){
         type:data.type,
         autoplay:data.autoplay
     }
-    try{
-        let result = await axios.get(`https://163api.qxiao.eu.org/song/url?id=${playerStore.play.id}&realIP=116.25.146.177`)
-        if(result.data.data[0].url == undefined) throw "undefined url"
-        result.data.data[0].url = result.data.data[0].url.replace('http','https')
-        if(playerStore.play.url != result.data.data[0].url) playerStore.play.url = result.data.data[0].url
-        else canPlay()
+    // try{
+    //     let result = await axios.get(`https://163api.qxiao.eu.org/song/url?id=${playerStore.play.id}&realIP=116.25.146.177`)
+    //     if(result.data.data[0].url == undefined) throw "undefined url"
+    //     result.data.data[0].url = result.data.data[0].url.replace('http','https')
+    //     if(playerStore.play.url != result.data.data[0].url) playerStore.play.url = result.data.data[0].url
+    //     else canPlay()
         
-    }catch(error){
-        alert(error)
-    }
+    // }catch(error){
+    //     alert(error)
+    // }
+    let url = `https://music.163.com/song/media/outer/url?id=${playerStore.play.id}.mp3`
+    if(playerStore.play.id != url) playerStore.play.url = url
+    else canPlay()
     console.log('@player',playerStore.play)
 }
 
