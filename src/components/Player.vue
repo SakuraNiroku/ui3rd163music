@@ -3,7 +3,7 @@
         <img :src="playerStore.play.img" height="100" width="100">
         <div class="player-msg">
             <p>{{ playerStore.play.name }} - {{ playerStore.play.id }}</p>
-            <audio id="player-audio" :src="playerStore.play.url" controls @canplay="canPlay"></audio>
+            <audio id="player-audio" :src="playerStore.play.url" controls @canplay="canPlay" loop></audio>
         </div>
     </div>
 </template>
