@@ -1,41 +1,43 @@
 <template>
-    <div class="search">
+    <div class="songSearch">
+        <div class="ss-left-content">
+            <form @submit.prevent="searchFunc(1)">
+            <input type="text" v-model="searchText" class="ss-input">
+            <button type="submit" class="songSearch">搜索</button>
+            </form>
+            <table class="ss-table">
+                <thead>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>歌手</th>
+                </thead>
+                <tbody v-if="searchResult.length == 0">
+                    <td>无</td>
+                    <td>无</td>
+                    <td>无</td>
+                </tbody>
+                <tbody v-else>
+                    <tr v-for="(item,index) of searchResult" :key="item.id">
+                        <td>{{ item.id }}</td>
+                        <td><RouterLink :to="{
+                            name:'song_detail',
+                            params:{
+                                id:item.id,
+                                name:item.name,
+                                artists:item.artists,
+                            }
+                        }">{{ item.name }}</RouterLink></td>
+                        <td>{{ item.artists }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <button @click="changePage(-1)" :disabled="!canChangePage">&lt;-</button>
+                当前位于第{{ page }}页
+                <button @click="changePage(+1)" :disabled="!canChangePage">-></button>
+            </p>
+        </div>
         <RouterView></RouterView>
-        <form @submit.prevent="searchFunc(1)">
-            <input type="text" v-model="searchText">
-            <button type="submit" class="search">搜索</button>
-        </form>
-        <table>
-            <thead>
-                <th>ID</th>
-                <th>名称</th>
-                <th>歌手</th>
-            </thead>
-            <tbody v-if="searchResult.length == 0">
-                <td>无</td>
-                <td>无</td>
-                <td>无</td>
-            </tbody>
-            <tbody v-else>
-                <tr v-for="(item,index) of searchResult" :key="item.id">
-                    <td>{{ item.id }}</td>
-                    <td><RouterLink :to="{
-                        name:'song_detail',
-                        params:{
-                            id:item.id,
-                            name:item.name,
-                            artists:item.artists,
-                        }
-                    }">{{ item.name }}</RouterLink></td>
-                    <td>{{ item.artists }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <p>
-            <button @click="changePage(-1)" :disabled="!canChangePage">&lt;-</button>
-            当前位于第{{ page }}页
-            <button @click="changePage(+1)" :disabled="!canChangePage">-></button>
-        </p>
     </div>
 </template>
 
@@ -92,15 +94,12 @@ function changePage(n){
 </script>
 
 <style>
-div.search{
-    text-align: center;  
+div.songSearch{
+    display: flex;
+    text-align: center;
 }
 
-*{
-    margin: 10px;
-}
-
-button.search{
+button.songSearch{
     border: none;
     background-color: #4CAF50;
     font-size: 25px;
@@ -108,15 +107,23 @@ button.search{
     border-radius: 10px;
 }
 
-input{
+.ss-input{
     font-size: 20px;
 }
 
-table{
+.ss-table{
     margin-left: auto;
     margin-right: auto;
     width: 90%;
     border: 1px solid black;
+}
+
+.ss-left-content {
+    width: 40%;
+}
+
+.ss-right-content {
+    width: 60%;
 }
 
 </style>

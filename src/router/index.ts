@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Home from '@/pages/Home.vue'
-import Search from '@/pages/Search.vue'
+import SongSearch from '@/pages/SongSearch.vue'
 import Playlist from '@/pages/Playlist.vue'
 import Detail from '@/pages/Detail.vue'
 
@@ -14,14 +14,20 @@ const router = createRouter({
             component:Home
         },
         {
-            name:'search',
             path:'/search',
-            component:Search,
+            redirect:'/search/song',
             children:[
                 {
-                    name:'song_detail',
-                    path:'detail/:id/:name/:artists',
-                    component:Detail
+                    path:'song',
+                    name:'songSearch',
+                    component:SongSearch,
+                    children:[
+                        {
+                            name:'song_detail',
+                            path:'detail/:id/:name/:artists',
+                            component:Detail
+                        },
+                    ]
                 },
             ]
         },
