@@ -13,5 +13,9 @@ export const usePlayerStore = defineStore('player',{
             }
         }
     },
-    persist:true,
+    persist:{
+        paths:[
+            'play'
+        ]
+    }
 })
