@@ -37,6 +37,7 @@ async function updateImg(){
 }
 
 function playIT(){
+    console.log('#','playIT')
     channel.postMessage({
         id:route.params.id,
         name:route.params.name,
@@ -52,7 +53,10 @@ watch(params,()=>{
 
 
 </script>
-<style>
+<style scoped>
+* {
+    margin: 5px;
+}
 .messageBox{
     display: flex;
     flex-direction: row;

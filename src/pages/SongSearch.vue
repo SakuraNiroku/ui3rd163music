@@ -32,9 +32,9 @@
                 </tbody>
             </table>
             <p>
-                <button @click="changePage(-1)" :disabled="!canChangePage">&lt;-</button>
+                <button @click="changePage(-1)" :disabled="!canChangePage">←</button>
                 当前位于第{{ page }}页
-                <button @click="changePage(+1)" :disabled="!canChangePage">-></button>
+                <button @click="changePage(+1)" :disabled="!canChangePage">→</button>
             </p>
         </div>
         <RouterView></RouterView>
@@ -93,7 +93,10 @@ function changePage(n){
 }
 </script>
 
-<style>
+<style scoped>
+* {
+    margin: 5px;
+}
 div.songSearch{
     display: flex;
     text-align: center;

@@ -38,8 +38,7 @@ function showPlayer(){
 }
 </script>
 
-<style>
-    /* App */
+<style scoped>
   * {
     margin: 5px;
   }

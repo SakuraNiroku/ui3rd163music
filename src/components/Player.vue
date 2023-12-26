@@ -1,48 +1,54 @@
 <template>
     <div class="player">
-        <img :src="playerStore.play.img" height="100" width="100">
+        <img :src="img" height="100" width="100">
         <div class="player-msg">
-            <p>{{ playerStore.play.name }} - {{ playerStore.play.id }}</p>
-            <audio id="player-audio" :src="playerStore.play.url" controls @canplay="canPlay" loop></audio>
+            <p>{{ name }} - {{ id }}</p>
+            <audio id="player-audio" :src="url" controls @canplay="canPlay" loop></audio>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted, toRefs } from 'vue'
+import { storeToRefs } from 'pinia'
 import axios from 'axios'
 axios.defaults.withCredentials = true
 import { usePlayerStore } from '@/store/player'
 
 let playerStore = usePlayerStore()
-console.log('@@@@',playerStore)
-playerStore.play.autoplay = false
+let { img, url, id, name, type, autoplay } = storeToRefs(playerStore)
+
+onMounted(()=>{
+    console.log('@@@@',playerStore)
+    autoplay.value = false
+    console.log(autoplay)
+})
 
 let channel = new BroadcastChannel('player-channel')
 channel.onmessage = function(e){
     let data = e.data
-    playerStore.play = {
-        id:data.id,
-        name:data.name,
-        img:data.img,
-        type:data.type,
-        autoplay:data.autoplay
-    }
-    let url = `https://music.163.com/song/media/outer/url?id=${playerStore.play.id}.mp3`
-    if(playerStore.play.id != url) playerStore.play.url = url
-    else canPlay()
-    console.log('@player',playerStore.play)
+    playerStore.replacePlay(data)
+    let Aurl = `https://music.163.com/song/media/outer/url?id=${id.value}.mp3`
+    url.value = Aurl
+    console.log('@player',playerStore)
 }
 
 function canPlay(){
-    console.log('@','audio is ready! autoplay mode:',playerStore.play.autoplay)
-    if(playerStore.play.autoplay){
+    console.log('@','audio is ready! autoplay mode:',autoplay.value)
+    if(autoplay.value){
         document.getElementById('player-audio').play()
     }
 }
+
+onUnmounted(()=>{
+    channel.close()
+})
 </script>
 
-<style>
+<style scoped>
+* {
+    margin: 5px;
+}
 .player{
     display: flex;
     width: 100%;

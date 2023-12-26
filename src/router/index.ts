@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/pages/Home.vue'
 import SongSearch from '@/pages/SongSearch.vue'
 import Playlist from '@/pages/Playlist.vue'
-import Detail from '@/pages/Detail.vue'
+import SongDetail from '@/pages/SongDetail.vue'
 
 const router = createRouter({
     history:createWebHashHistory(),
@@ -25,7 +25,7 @@ const router = createRouter({
                         {
                             name:'song_detail',
                             path:'detail/:id/:name/:artists',
-                            component:Detail
+                            component:SongDetail
                         },
                     ]
                 },

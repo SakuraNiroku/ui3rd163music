@@ -9,7 +9,10 @@
 
 </script>
 
-<style>
+<style scoped>
+* {
+    margin: 5px;
+}
 .home{
     padding: 20px;
     margin: 10px;
