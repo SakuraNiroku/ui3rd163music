@@ -7,6 +7,7 @@
           <div class="navigate">
               <RouterLink :to="{name:'home'}" active-class="active">主页</RouterLink>
               <RouterLink :to="{name:'songSearch'}" active-class="active">搜索-歌曲</RouterLink>
+              <RouterLink :to="{name:'playlistSearch'}" active-class="active">搜索-歌单</RouterLink>
               <RouterLink :to="{name:'playlist'}" active-class="active">歌单</RouterLink>
           </div>
         </div>

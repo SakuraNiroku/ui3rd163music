@@ -15,7 +15,7 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
-import { ref, watch, toRefs } from 'vue'
+import { ref, watch, toRefs, onUnmounted } from 'vue'
 import axios from 'axios'
 axios.defaults.withCredentials = true
 let route = useRoute()
@@ -50,6 +50,10 @@ function playIT(){
 watch(params,()=>{
     updateImg()
 },{deep:true,immediate:true})
+
+onUnmounted(()=>{
+    channel.close()
+})
 
 
 </script>

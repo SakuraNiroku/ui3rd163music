@@ -20,7 +20,7 @@
                     <tr v-for="(item,index) of searchResult" :key="item.id">
                         <td>{{ item.id }}</td>
                         <td><RouterLink :to="{
-                            name:'song_detail',
+                            name:'songSearch_detail',
                             params:{
                                 id:item.id,
                                 name:item.name,

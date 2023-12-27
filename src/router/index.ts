@@ -4,6 +4,7 @@ import Home from '@/pages/Home.vue'
 import SongSearch from '@/pages/SongSearch.vue'
 import Playlist from '@/pages/Playlist.vue'
 import SongDetail from '@/pages/SongDetail.vue'
+import PlayListSearch from '@/pages/PlayListSearch.vue'
 
 const router = createRouter({
     history:createWebHashHistory(),
@@ -23,10 +24,18 @@ const router = createRouter({
                     component:SongSearch,
                     children:[
                         {
-                            name:'song_detail',
+                            name:'songSearch_detail',
                             path:'detail/:id/:name/:artists',
                             component:SongDetail
                         },
+                    ]
+                },
+                {
+                    path:'playlist',
+                    name:'playlistSearch',
+                    component:PlayListSearch,
+                    children:[
+                        
                     ]
                 },
             ]
