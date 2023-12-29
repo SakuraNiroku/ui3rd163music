@@ -14,7 +14,6 @@ import { storeToRefs } from 'pinia'
 import axios from 'axios'
 axios.defaults.withCredentials = true
 import { usePlayerStore } from '@/store/player'
-
 let playerStore = usePlayerStore()
 let { play } = storeToRefs(playerStore)
 

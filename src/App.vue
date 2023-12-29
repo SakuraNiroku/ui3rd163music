@@ -6,9 +6,8 @@
           <!-- 导航区 -->
           <div class="navigate">
               <RouterLink :to="{name:'home'}" active-class="active">主页</RouterLink>
-              <RouterLink :to="{name:'songSearch'}" active-class="active">搜索-歌曲</RouterLink>
-              <RouterLink :to="{name:'playlistSearch'}" active-class="active">搜索-歌单</RouterLink>
-              <RouterLink :to="{name:'playlist'}" active-class="active">歌单</RouterLink>
+              <RouterLink :to="{name:'search'}" active-class="active">搜索</RouterLink>
+              <RouterLink :to="{name:'favorite'}" active-class="active">收藏</RouterLink>
           </div>
         </div>
         <!-- 展示区 -->
@@ -51,24 +50,19 @@ function showPlayer(){
     justify-content: space-around;
   }
   .navigate a {
-    display: block;
     text-align: center;
     width: 150px;
     height: 40px;
     line-height: 40px;
-    border-radius: 10px;
-    background-color: gray;
     text-decoration: none;
-    color: white;
+    color: green;
     font-size: 18px;
-    letter-spacing: 5px;
   }
   .navigate a.active {
-    background-color: #64967E;
-    color: #ffc268;
+    border-width: 0 0 5px 0;
+    border-color: green;
+    border-style: solid;
     font-weight: 900;
-    text-shadow: 0 0 1px black;
-    font-family: 微软雅黑;
   }
   .header {
     display: flex;

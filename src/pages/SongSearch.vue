@@ -21,10 +21,11 @@
                         <td>{{ item.id }}</td>
                         <td><RouterLink :to="{
                             name:'songSearch_detail',
-                            params:{
+                            query:{
                                 id:item.id,
                                 name:item.name,
                                 artists:item.artists,
+                                status:item.status
                             }
                         }">{{ item.name }}</RouterLink></td>
                         <td>{{ item.artists }}</td>
@@ -60,18 +61,19 @@ async function searchFunc(p){
         searchResult.value = []
         if(result.data.code == 200){
             if(result.data.result.songs != undefined){
-                result.data.result.songs.forEach((item,index)=>{
+                for(let item of result.data.result.songs){
                     let artists = ''
-                    item.artists.forEach((artist,index)=>{
+                    for(let artist of item.artists){
                         artists += artist.name + ' '
-                    })
-
+                    }
+                    let status = (item.fee == 0 | item.fee == 8) ? 'ok' : 'vip'
                     searchResult.value.push({
                         id:item.id,
                         name:item.name,
-                        artists:artists
+                        artists,
+                        status
                     })
-                })
+                }
             }
         }
         canChangePage.value = true
