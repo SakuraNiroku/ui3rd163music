@@ -2,6 +2,7 @@
     <div class="favorite">
         <div>
             <RouterLink :to="{name:'favoriteSongs'}" active-class="active">歌曲</RouterLink>
+            <RouterLink :to="{name:'favoritePlaylist'}" active-class="active">歌单</RouterLink>
         </div>
         <RouterView class="rview"></RouterView>
     </div>

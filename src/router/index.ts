@@ -8,6 +8,7 @@ import PlayListSearch from '@/pages/PlayListSearch.vue'
 import Search from '@/pages/Search.vue'
 import FavoriteSongs from '@/pages/Favorite/FavoriteSongs.vue'
 import PlaylistDetail from '@/pages/PlaylistDetail.vue'
+import FavoritePlaylistVue from '@/pages/Favorite/FavoritePlaylist.vue'
 
 const router = createRouter({
     history:createWebHashHistory(),
@@ -42,12 +43,12 @@ const router = createRouter({
                     children:[
                         {
                             name:'playlistSearch_detail',
-                            path:'detail/:id/:name/:img',
+                            path:'detail/:id/:name/:img/:favorite?',
                             component:PlaylistDetail,
                             children:[
                                 {
                                     name:'playlistSearch_detail_songDetail',
-                                    path:'song#view',
+                                    path:'song',
                                     component:SongDetail,
                                 },
                             ],
@@ -66,6 +67,25 @@ const router = createRouter({
                     path:'songs',
                     name:'favoriteSongs',
                     component:FavoriteSongs,
+                },
+                {
+                    path:'playlist',
+                    name:'favoritePlaylist',
+                    component:FavoritePlaylistVue,
+                    children:[
+                        {
+                            path:'detail/:id/:name/:img/:favorite?',
+                            name:'favoritePlaylistDetail',
+                            component:PlaylistDetail,
+                            children:[
+                                {
+                                    name:'favoritePlaylistDetailSongDetail',
+                                    path:'song',
+                                    component:SongDetail,
+                                },
+                            ]
+                        },
+                    ]
                 },
             ]
         },

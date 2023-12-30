@@ -128,6 +128,10 @@ button.songSearch{
 
 .right-content {
     width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
 }
 
 </style>
