@@ -16,6 +16,9 @@
                     }" v-show="!playlistData[item].loading">{{ playlistData[item].name }}</RouterLink>
                     <span v-show="playlistData[item].loading">加载中</span>
                 </p>
+                <div class="Mcontrol">
+                    <button @click="favoriteStore.deleteFavoritePlaylist(item.id)">取消收藏</button>
+                </div>
             </div>
             <div v-show="favoritePlaylist.length == 0" class="noPlaylist">没有歌单！</div>
         </div>
