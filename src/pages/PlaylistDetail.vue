@@ -35,7 +35,7 @@
                     <tr v-for="item of playlistData.tracks" :key="item.id">
                         <td>{{ item.id }}</td>
                         <td><RouterLink :to="{
-                            name:params.favorite == undefined ? 'playlistSearch_detail_songDetail' : 'favoritePlaylistDetailSongDetail',
+                            name:(params.favorite == undefined) ? 'playlistSearch_detail_songDetail' : 'favoritePlaylistDetailSongDetail',
                             query:{
                                 id:item.id,
                                 name:item.name,
@@ -43,7 +43,7 @@
                                 status:item.status
                             },
                             params:{
-                                favorite:1
+                                favorite: (params.favorite == undefined) ? undefined : 1
                             }
                         }">{{ item.name }}</RouterLink></td>
                         <td>{{ item.artists }}</td>
