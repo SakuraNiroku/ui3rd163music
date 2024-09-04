@@ -9,7 +9,7 @@
                 歌手：{{ query.artists }}<br>
                 音乐情况：{{ query.status }}
             </p><br>
-                <button @click="playIT" :disabled="query.status != 'ok'">播放它！</button>
+                <button @click="playIT">播放它！</button>
                 <button @click="favoriteSong">收藏：{{ isFavoriteSong ? '已收藏，★' : '未收藏，✰' }}</button>
             </div>
         </div>
@@ -68,8 +68,6 @@ function playIT(){
     console.log('#','playIT')
     channel.postMessage({
         id:route.query.id,
-        name:route.query.name,
-        img:img_src.value,
         type:'song',
         autoplay:true
     })

@@ -1,32 +1,35 @@
 <template>
     <div class="player">
-        <img :src="play.img" height="100" width="100">
+        <img :src="runningdata.cover" height="100" width="100">
         <div class="player-msg">
-            <p>{{ play.name }} - {{ play.id }}</p>
-            <audio id="player-audio" :src="play.url" controls @canplay="canPlay" loop></audio>
+            <p>{{ runningdata.name }} - {{ play.id }}</p>
+            <audio id="player-audio" :src="runningdata.url" controls @canplay="canPlay" loop></audio>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onUnmounted, toRefs } from 'vue'
+import { ref, watch, onMounted, onUnmounted, toRefs, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
 import axios from 'axios'
 axios.defaults.withCredentials = true
 import { usePlayerStore } from '@/store/player'
+import musicparsec from '@/musicparsec';
 let playerStore = usePlayerStore()
 let { play } = storeToRefs(playerStore)
+
+let runningdata = ref(musicparsec(play.value.id))
+musicparsec(play.value.id).then((a)=>{runningdata.value = a})
+
 
 onMounted(()=>{
     play.value.autoplay = false
 })
 
 let channel = new BroadcastChannel('player-channel')
-channel.onmessage = function(e){
+channel.onmessage = async function(e){
     let data = e.data
-    let Aurl = `https://music.163.com/song/media/outer/url?id=${data.id}.mp3`
-    if(Aurl != play.value.url) {
-        data.url = Aurl
+    if(data.id != play.value.id) {
         playerStore.replacePlay(data)
     }
     else {
@@ -36,6 +39,8 @@ channel.onmessage = function(e){
         canPlay()
     }
     console.log('@player',data)
+    runningdata.value = await musicparsec(play.value.id)
+    // Object.assign(runningdata,musicparsec(play.value.id))
 }
 
 function canPlay(){
